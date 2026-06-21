@@ -2,7 +2,7 @@ from datetime import datetime
 
 
 class SinhVien:
-    """Lớp đại diện cho một sinh viên."""
+    
 
     def __init__(self, mssv="", ho_ten="", ngay_sinh="", gioi_tinh="Nam", lop="", email=""):
         self._mssv = mssv
@@ -69,7 +69,7 @@ class SinhVien:
         return self.__str__()
 
     def to_dict(self):
-        """Chuyển đổi thành dictionary để hiển thị."""
+        
         return {
             "MSSV": self._mssv,
             "Họ tên": self._ho_ten,
@@ -81,7 +81,6 @@ class SinhVien:
 
 
 class MonHoc:
-    """Lớp đại diện cho một môn học."""
 
     def __init__(self, ma_mon="", ten_mon="", so_tin_chi=0):
         self._ma_mon = ma_mon
@@ -129,7 +128,6 @@ class MonHoc:
 
 
 class LopHocPhan:
-    """Lớp đại diện cho một lớp học phần."""
 
     def __init__(self, ma_lhp="", ma_mon="", hoc_ky="", nam_hoc="", ds_mssv=None):
         self._ma_lhp = ma_lhp
@@ -188,14 +186,14 @@ class LopHocPhan:
         return False
 
     def xoa_sinh_vien(self, mssv):
-        """Xóa MSSV khỏi danh sách lớp."""
+    
         if mssv in self._ds_mssv:
             self._ds_mssv.remove(mssv)
             return True
         return False
 
     def so_luong_sv(self):
-        """Trả về số lượng sinh viên trong lớp."""
+       
         return len(self._ds_mssv)
 
     def __str__(self):
@@ -215,7 +213,6 @@ class LopHocPhan:
 
 
 class BangDiem:
-    """Lớp đại diện cho bảng điểm của sinh viên theo môn học."""
 
     def __init__(self, mssv="", ma_mon="", diem_qua_trinh=0.0, diem_thi=0.0):
         self._mssv = mssv
@@ -242,12 +239,11 @@ class BangDiem:
 
     @property
     def diem_tong_ket(self):
-        """Tính điểm tổng kết = 50% QT + 50% Thi."""
         return round(self._diem_qua_trinh * 0.5 + self._diem_thi * 0.5, 2)
 
     @property
     def diem_he4(self):
-        """Quy đổi điểm hệ 10 sang hệ 4."""
+        
         dtk = self.diem_tong_ket
         if dtk >= 9.0:
             return 4.0
@@ -270,7 +266,7 @@ class BangDiem:
 
     @property
     def diem_chu(self):
-        """Quy đổi sang điểm chữ."""
+        
         dtk = self.diem_tong_ket
         if dtk >= 9.0:
             return "A+"
@@ -293,7 +289,7 @@ class BangDiem:
 
     @property
     def xep_loai(self):
-        """Xếp loại học lực dựa trên điểm tổng kết."""
+        
         dtk = self.diem_tong_ket
         if dtk >= 9.0:
             return "Xuất sắc"
