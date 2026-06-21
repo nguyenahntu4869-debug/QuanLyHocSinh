@@ -5,16 +5,7 @@ from datetime import datetime
 
 
 def validate_mssv(mssv):
-    """
-    Kiểm tra MSSV hợp lệ.
-    MSSV phải có ít nhất 3 ký tự, chỉ chứa chữ và số.
     
-    Args:
-        mssv: Mã số sinh viên cần kiểm tra
-        
-    Returns:
-        tuple: (bool, str) - (hợp lệ, thông báo lỗi)
-    """
     if not mssv or not mssv.strip():
         return False, "MSSV không được để trống"
     mssv = mssv.strip()
@@ -26,15 +17,7 @@ def validate_mssv(mssv):
 
 
 def validate_ho_ten(ho_ten):
-    """
-    Kiểm tra họ tên hợp lệ.
     
-    Args:
-        ho_ten: Họ tên cần kiểm tra
-        
-    Returns:
-        tuple: (bool, str) - (hợp lệ, thông báo lỗi)
-    """
     if not ho_ten or not ho_ten.strip():
         return False, "Họ tên không được để trống"
     if len(ho_ten.strip()) < 2:
@@ -45,15 +28,7 @@ def validate_ho_ten(ho_ten):
 
 
 def validate_ngay_sinh(ngay_sinh):
-    """
-    Kiểm tra ngày sinh hợp lệ (dd/mm/yyyy).
     
-    Args:
-        ngay_sinh: Chuỗi ngày sinh
-        
-    Returns:
-        tuple: (bool, str) - (hợp lệ, thông báo lỗi)
-    """
     if not ngay_sinh or not ngay_sinh.strip():
         return False, "Ngày sinh không được để trống"
     try:
@@ -70,25 +45,8 @@ def validate_ngay_sinh(ngay_sinh):
         return False, "Ngày sinh không hợp lệ"
 
 def generate_hust_email(ho_ten, mssv):
-    """
-    Sinh email HUST theo quy tắc:
-    - Tên (từ cuối cùng, bỏ dấu, viết hoa chữ đầu)
-    - Dấu chấm "."
-    - Chữ cái đầu viết hoa của Họ và Đệm (bỏ dấu)
-    - MSSV bỏ đi tiền tố "20"
-    - @sis.hust.edu.vn
     
-    Ví dụ:
-        "Nguyễn Văn An",  MSSV "20215678" → "An.NV215678@sis.hust.edu.vn"
-        "Nguyễn Văn A B", MSSV "20215678" → "B.NVA215678@sis.hust.edu.vn"
-    
-    Args:
-        ho_ten: Họ tên sinh viên
-        mssv: Mã số sinh viên
-        
-    Returns:
-        str: Email theo định dạng HUST, hoặc "" nếu dữ liệu không đủ
-    """
+   
     if not ho_ten or not mssv:
         return ""
     
@@ -110,7 +68,7 @@ def generate_hust_email(ho_ten, mssv):
     }
     
     def strip_accents(txt):
-        """Bỏ dấu tiếng Việt."""
+        
         return "".join(char_map.get(c, c) for c in txt.lower())
     
     parts = ho_ten.strip().split()
@@ -136,18 +94,7 @@ def generate_hust_email(ho_ten, mssv):
 
 
 def validate_email(email, ho_ten="", mssv=""):
-    """
-    Kiểm tra email hợp lệ.
-    Nếu có ho_ten và mssv, kiểm tra email khớp định dạng HUST.
-    
-    Args:
-        email: Địa chỉ email
-        ho_ten: Họ tên sinh viên (tùy chọn, dùng để kiểm tra định dạng HUST)
-        mssv: Mã số sinh viên (tùy chọn, dùng để kiểm tra định dạng HUST)
-        
-    Returns:
-        tuple: (bool, str) - (hợp lệ, thông báo lỗi)
-    """
+   
     if not email or not email.strip():
         return False, "Email không được để trống"
     
@@ -165,9 +112,7 @@ def validate_email(email, ho_ten="", mssv=""):
 
 
 def normalize_text(text):
-    """
-    Chuẩn hóa văn bản tiếng Việt: bỏ dấu và chuyển về chữ thường.
-    """
+  
     if not text:
         return ""
     char_map = {
@@ -189,15 +134,7 @@ def normalize_text(text):
 
 
 def validate_diem(diem_str):
-    """
-    Kiểm tra điểm hợp lệ (0-10).
-    
-    Args:
-        diem_str: Chuỗi điểm số
-        
-    Returns:
-        tuple: (bool, float, str) - (hợp lệ, giá trị điểm, thông báo lỗi)
-    """
+   
     if not diem_str or not str(diem_str).strip():
         return False, 0.0, "Điểm không được để trống"
     try:
@@ -210,16 +147,7 @@ def validate_diem(diem_str):
 
 
 def validate_so_tin_chi(stc_str):
-    """
-    Kiểm tra số tín chỉ hợp lệ.
-    Chỉ chấp nhận: 2, 3, 4, 6, 8.
     
-    Args:
-        stc_str: Chuỗi số tín chỉ
-        
-    Returns:
-        tuple: (bool, int, str) - (hợp lệ, giá trị, thông báo lỗi)
-    """
     if not stc_str or not str(stc_str).strip():
         return False, 0, "Số tín chỉ không được để trống"
     try:
@@ -232,17 +160,7 @@ def validate_so_tin_chi(stc_str):
 
 
 def validate_ma_mon(ma_mon):
-    """
-    Kiểm tra mã môn hợp lệ.
-    Mã môn phải có đúng 6 ký tự: 2 chữ cái VIẾT HOA + 4 chữ số.
-    VD: IT1234, MI3010
     
-    Args:
-        ma_mon: Mã môn học
-        
-    Returns:
-        tuple: (bool, str) - (hợp lệ, thông báo lỗi)
-    """
     if not ma_mon or not ma_mon.strip():
         return False, "Mã môn không được để trống"
     ma_mon = ma_mon.strip()
@@ -252,16 +170,7 @@ def validate_ma_mon(ma_mon):
 
 
 def validate_ma_lhp(ma_lhp):
-    """
-    Kiểm tra mã lớp học phần hợp lệ.
-    Mã lớp học phần chỉ được phép nhập số, không chứa chữ cái hoặc ký tự đặc biệt.
-    
-    Args:
-        ma_lhp: Mã lớp học phần
-        
-    Returns:
-        tuple: (bool, str) - (hợp lệ, thông báo lỗi)
-    """
+   
     if not ma_lhp or not ma_lhp.strip():
         return False, "Mã lớp HP không được để trống"
     ma_lhp = ma_lhp.strip()
@@ -272,33 +181,17 @@ def validate_ma_lhp(ma_lhp):
 
 
 def clear_screen():
-    """Xóa màn hình console."""
+  
     os.system('cls' if platform.system() == 'Windows' else 'clear')
 
 
 def format_diem(diem):
-    """
-    Định dạng hiển thị điểm (1 chữ số thập phân).
-    
-    Args:
-        diem: Điểm số (float)
-        
-    Returns:
-        str: Điểm đã format
-    """
+   
     return f"{diem:.1f}"
 
 
 def get_xep_loai_color(xep_loai):
-    """
-    Trả về mã màu tương ứng với xếp loại để hiển thị trên GUI.
-    
-    Args:
-        xep_loai: Chuỗi xếp loại
-        
-    Returns:
-        str: Mã màu hex
-    """
+   
     colors = {
         "Xuất sắc": "#00e676",   # Xanh lá sáng
         "Giỏi": "#69f0ae",       # Xanh lá nhạt
@@ -312,11 +205,7 @@ def get_xep_loai_color(xep_loai):
 
 
 def vietnamese_sort_key(fullname):
-    """
-    Tạo khóa sắp xếp cho họ tên tiếng Việt.
-    Sắp xếp ưu tiên theo Tên (từ cuối cùng), sau đó đến Họ lót (các từ trước).
-    Chuyển tiếng Việt có dấu thành không dấu để so sánh chính xác theo bảng chữ cái A-Z.
-    """
+   
     if not fullname:
         return ""
     
