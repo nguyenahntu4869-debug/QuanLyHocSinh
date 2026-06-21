@@ -179,7 +179,7 @@ class LopHocPhan:
         self._ds_mssv = value
 
     def them_sinh_vien(self, mssv):
-        """Thêm MSSV vào danh sách lớp."""
+        
         if mssv not in self._ds_mssv:
             self._ds_mssv.append(mssv)
             return True
