@@ -27,19 +27,6 @@ REQUIRED_COLUMNS = {
 
 
 def validate_excel_columns(ws, loai_file):
-    """
-    Kiểm tra xem các cột trong file Excel có đúng định dạng yêu cầu không.
-
-    Args:
-        ws: Worksheet đang mở
-        loai_file: Loại file ("sinh_vien", "mon_hoc", "lop_hoc_phan", "diem")
-
-    Returns:
-        tuple: (bool, str) - (True nếu hợp lệ, thông báo lỗi nếu không hợp lệ)
-    """
-    required = REQUIRED_COLUMNS.get(loai_file)
-    if not required:
-        return True, ""
 
     # Lấy header hàng đầu tiên
     header_row = []
@@ -79,20 +66,7 @@ def validate_excel_columns(ws, loai_file):
 
 
 def import_lop_hoc_phan(filepath):
-    """
-    Đọc danh sách lớp học phần từ file Excel.
-    
-    Cấu trúc file Excel (Sheet đầu tiên):
-    Hàng 1: Header (Mã LHP | Mã môn | Học kỳ | Năm học | Danh sách MSSV)
-    Hàng 2+: Dữ liệu
-    Cột "Danh sách MSSV" chứa các MSSV cách nhau bởi dấu phẩy (,)
-    
-    Args:
-        filepath: Đường dẫn file .xlsx
-        
-    Returns:
-        tuple: (list[LopHocPhan], list[str]) - (danh sách LHP, danh sách lỗi)
-    """
+   
     ds_lhp = []
     errors = []
     
@@ -147,7 +121,7 @@ def import_lop_hoc_phan(filepath):
 
 
 def export_template_lop_hoc_phan(filepath):
-    """Tạo file Excel mẫu cho danh sách lớp học phần."""
+   
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Danh sách Lớp Học Phần"
@@ -192,19 +166,8 @@ def export_template_lop_hoc_phan(filepath):
 
 
 def import_sinh_vien(filepath):
-    """
-    Đọc danh sách sinh viên từ file Excel.
     
-    Cấu trúc file Excel (Sheet đầu tiên):
-    Hàng 1: Header (MSSV | Họ tên | Ngày sinh | Giới tính | Lớp | Email)
-    Hàng 2+: Dữ liệu
     
-    Args:
-        filepath: Đường dẫn file .xlsx
-        
-    Returns:
-        tuple: (list[SinhVien], list[str]) - (danh sách SV, danh sách lỗi)
-    """
     ds_sv = []
     errors = []
     
@@ -292,14 +255,7 @@ def import_sinh_vien(filepath):
 
 
 def import_mon_hoc(filepath):
-    """
-    Đọc danh sách môn học từ file Excel.
-    
-    Cấu trúc: Mã môn | Tên môn | Số tín chỉ
-    
-    Returns:
-        tuple: (list[MonHoc], list[str])
-    """
+   
     ds_mh = []
     errors = []
     
@@ -344,14 +300,7 @@ def import_mon_hoc(filepath):
 
 
 def import_diem(filepath):
-    """
-    Đọc bảng điểm từ file Excel.
-    
-    Cấu trúc: MSSV | Mã môn | Điểm quá trình | Điểm thi
-    
-    Returns:
-        tuple: (list[BangDiem], list[str])
-    """
+   
     ds_diem = []
     errors = []
     
@@ -405,7 +354,7 @@ def import_diem(filepath):
 
 
 def export_template_sinh_vien(filepath):
-    """Tạo file Excel mẫu cho danh sách sinh viên."""
+   
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Danh sách Sinh viên"
@@ -453,7 +402,7 @@ def export_template_sinh_vien(filepath):
 
 
 def export_template_mon_hoc(filepath):
-    """Tạo file Excel mẫu cho danh sách môn học."""
+ 
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Danh sách Môn học"
@@ -499,7 +448,7 @@ def export_template_mon_hoc(filepath):
 
 
 def export_template_diem(filepath):
-    """Tạo file Excel mẫu cho bảng điểm."""
+   
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Bảng điểm"
@@ -548,7 +497,7 @@ def export_template_diem(filepath):
 # ============================================================
 
 def _apply_header_style(ws, headers, col_widths, fill_color):
-    """Hàm helper: tạo header cho worksheet với style chuẩn."""
+   
     header_font = Font(name="Arial", size=11, bold=True, color="FFFFFF")
     header_fill = PatternFill(start_color=fill_color, end_color=fill_color, fill_type="solid")
     header_align = Alignment(horizontal="center", vertical="center")
@@ -567,16 +516,7 @@ def _apply_header_style(ws, headers, col_widths, fill_color):
 
 
 def export_data_sinh_vien(filepath, ds_sinh_vien):
-    """
-    Xuất toàn bộ danh sách sinh viên thực tế ra file Excel.
-
-    Args:
-        filepath: Đường dẫn file .xlsx
-        ds_sinh_vien: list[SinhVien] - danh sách sinh viên thực tế
-
-    Returns:
-        int: Số bản ghi đã xuất
-    """
+    
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Danh sách Sinh viên"
@@ -602,16 +542,7 @@ def export_data_sinh_vien(filepath, ds_sinh_vien):
 
 
 def export_data_mon_hoc(filepath, ds_mon_hoc):
-    """
-    Xuất toàn bộ danh sách môn học thực tế ra file Excel.
-
-    Args:
-        filepath: Đường dẫn file .xlsx
-        ds_mon_hoc: list[MonHoc]
-
-    Returns:
-        int: Số bản ghi đã xuất
-    """
+    
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Danh sách Môn học"
@@ -636,19 +567,7 @@ def export_data_mon_hoc(filepath, ds_mon_hoc):
 
 
 def export_data_diem(filepath, ds_diem, ds_sinh_vien=None, ds_mon_hoc=None):
-    """
-    Xuất toàn bộ bảng điểm thực tế ra file Excel.
-    Bao gồm cả Họ tên sinh viên và Tên môn học nếu được cung cấp.
-
-    Args:
-        filepath: Đường dẫn file .xlsx
-        ds_diem: list[BangDiem]
-        ds_sinh_vien: list[SinhVien] (tùy chọn, để tra tên SV)
-        ds_mon_hoc: list[MonHoc] (tùy chọn, để tra tên môn)
-
-    Returns:
-        int: Số bản ghi đã xuất
-    """
+   
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Bảng điểm"
