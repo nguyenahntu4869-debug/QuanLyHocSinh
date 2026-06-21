@@ -14,7 +14,7 @@ from gui.main_window import MainWindow
 
 
 def main():
-    """Hàm chính - khởi động chương trình."""
+ 
     print("=" * 50)
     print("  CHUONG TRINH QUAN LY SINH VIEN")
     print("  Dang khoi dong...")
