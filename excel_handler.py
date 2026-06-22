@@ -27,7 +27,6 @@ REQUIRED_COLUMNS = {
 
 def validate_excel_columns(ws, loai_file):
 
-    # Lấy header hàng đầu tiên
     header_row = []
     for cell in ws[1]:
         val = cell.value
@@ -36,7 +35,6 @@ def validate_excel_columns(ws, loai_file):
         else:
             header_row.append("")
 
-    # Kiểm tra số cột
     non_empty_headers = [h for h in header_row if h]
     if len(non_empty_headers) < len(required):
         return False, (
@@ -45,7 +43,6 @@ def validate_excel_columns(ws, loai_file):
             + f"\n\nFile của bạn chỉ có {len(non_empty_headers)} cột."
         )
 
-    # Kiểm tra từng cột bắt buộc (so sánh không phân biệt hoa thường)
     header_lower = [h.lower() for h in header_row]
     missing_cols = []
     for req_col in required:
@@ -73,7 +70,6 @@ def import_lop_hoc_phan(filepath):
         wb = openpyxl.load_workbook(filepath, data_only=True)
         ws = wb.active
 
-        # ── Kiểm tra định dạng cột ──
         valid, err_msg = validate_excel_columns(ws, "lop_hoc_phan")
         if not valid:
             wb.close()
@@ -174,7 +170,6 @@ def import_sinh_vien(filepath):
         wb = openpyxl.load_workbook(filepath, data_only=True)
         ws = wb.active  # Lấy sheet đầu tiên
 
-        # ── Kiểm tra định dạng cột ──
         valid, err_msg = validate_excel_columns(ws, "sinh_vien")
         if not valid:
             wb.close()
@@ -186,7 +181,6 @@ def import_sinh_vien(filepath):
                 continue  # Bỏ qua hàng trống
             
             try:
-                # Đọc các cột, xử lý None
                 mssv = str(row[0]).strip() if row[0] is not None else ""
                 ho_ten = str(row[1]).strip() if len(row) > 1 and row[1] is not None else ""
                 ngay_sinh = str(row[2]).strip() if len(row) > 2 and row[2] is not None else ""
@@ -212,7 +206,6 @@ def import_sinh_vien(filepath):
                     errors.append(f"Hàng {row_idx}: Thiếu thông tin ({', '.join(missing)})")
                     continue
                 
-                # Kiểm tra định dạng dữ liệu
                 row_errors = []
                 ok_mssv, msg_mssv = validate_mssv(mssv)
                 if not ok_mssv:
@@ -262,7 +255,6 @@ def import_mon_hoc(filepath):
         wb = openpyxl.load_workbook(filepath, data_only=True)
         ws = wb.active
 
-        # ── Kiểm tra định dạng cột ──
         valid, err_msg = validate_excel_columns(ws, "mon_hoc")
         if not valid:
             wb.close()
@@ -307,7 +299,6 @@ def import_diem(filepath):
         wb = openpyxl.load_workbook(filepath, data_only=True)
         ws = wb.active
 
-        # ── Kiểm tra định dạng cột ──
         valid, err_msg = validate_excel_columns(ws, "diem")
         if not valid:
             wb.close()
@@ -330,7 +321,6 @@ def import_diem(filepath):
                     errors.append(f"Hàng {row_idx}: Thiếu mã môn cho MSSV '{mssv}'")
                     continue
                 
-                # Validate điểm
                 if diem_qt < 0 or diem_qt > 10:
                     errors.append(f"Hàng {row_idx}: Điểm QT không hợp lệ ({diem_qt})")
                     continue
@@ -358,7 +348,6 @@ def export_template_sinh_vien(filepath):
     ws = wb.active
     ws.title = "Danh sách Sinh viên"
     
-    # Header style
     header_font = Font(name="Arial", size=11, bold=True, color="FFFFFF")
     header_fill = PatternFill(start_color="4472C4", end_color="4472C4", fill_type="solid")
     header_align = Alignment(horizontal="center", vertical="center")
@@ -377,8 +366,7 @@ def export_template_sinh_vien(filepath):
         cell.alignment = header_align
         cell.border = thin_border
         ws.column_dimensions[openpyxl.utils.get_column_letter(col_idx)].width = width
-    
-    # Dữ liệu mẫu
+
     sample_data = [
         ["SV001", "Nguyễn Văn An", "15/03/2003", "Nam", "CNTT01", "an.nv@email.com"],
         ["SV002", "Trần Thị Bình", "22/07/2003", "Nữ", "CNTT01", "binh.tt@email.com"],
@@ -531,7 +519,6 @@ def export_data_sinh_vien(filepath, ds_sinh_vien):
         for col_idx, value in enumerate(row_data, start=1):
             cell = ws.cell(row=row_idx, column=col_idx, value=value)
             cell.border = thin_border
-            # Căn giữa tất cả trừ Họ tên (cột 2) và Email (cột 6)
             if col_idx not in (2, 6):
                 cell.alignment = data_align_center
 
@@ -571,7 +558,6 @@ def export_data_diem(filepath, ds_diem, ds_sinh_vien=None, ds_mon_hoc=None):
     ws = wb.active
     ws.title = "Bảng điểm"
 
-    # Tạo lookup nhanh
     sv_lookup = {}
     if ds_sinh_vien:
         for sv in ds_sinh_vien:
@@ -603,7 +589,6 @@ def export_data_diem(filepath, ds_diem, ds_sinh_vien=None, ds_mon_hoc=None):
         for col_idx, value in enumerate(row_data, start=1):
             cell = ws.cell(row=row_idx, column=col_idx, value=value)
             cell.border = thin_border
-            # Không căn giữa cột Họ tên (2) và Tên môn (4)
             if col_idx not in (2, 4):
                 cell.alignment = data_align_center
 
