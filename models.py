@@ -12,7 +12,7 @@ class SinhVien:
         self._lop = lop
         self._email = email
 
-    # --- Getter ---
+  
     @property
     def mssv(self):
         return self._mssv
@@ -37,7 +37,6 @@ class SinhVien:
     def email(self):
         return self._email
 
-    # --- Setter ---
     @mssv.setter
     def mssv(self, value):
         self._mssv = value
@@ -87,7 +86,6 @@ class MonHoc:
         self._ten_mon = ten_mon
         self._so_tin_chi = so_tin_chi
 
-    # --- Getter ---
     @property
     def ma_mon(self):
         return self._ma_mon
@@ -100,7 +98,6 @@ class MonHoc:
     def so_tin_chi(self):
         return self._so_tin_chi
 
-    # --- Setter ---
     @ma_mon.setter
     def ma_mon(self, value):
         self._ma_mon = value
@@ -136,7 +133,6 @@ class LopHocPhan:
         self._nam_hoc = nam_hoc      # VD: "2024-2025"
         self._ds_mssv = ds_mssv if ds_mssv is not None else []
 
-    # --- Getter ---
     @property
     def ma_lhp(self):
         return self._ma_lhp
@@ -157,7 +153,6 @@ class LopHocPhan:
     def ds_mssv(self):
         return self._ds_mssv
 
-    # --- Setter ---
     @ma_lhp.setter
     def ma_lhp(self, value):
         self._ma_lhp = value
@@ -220,7 +215,6 @@ class BangDiem:
         self._diem_qua_trinh = diem_qua_trinh  # Điểm quá trình (50%)
         self._diem_thi = diem_thi                # Điểm thi (50%)
 
-    # --- Getter ---
     @property
     def mssv(self):
         return self._mssv
@@ -306,7 +300,6 @@ class BangDiem:
         else:
             return "Kém"
 
-    # --- Setter ---
     @mssv.setter
     def mssv(self, value):
         self._mssv = value
