@@ -1,5 +1,4 @@
-# managers.py - Logic nghiệp vụ: quản lý sinh viên, môn học, lớp HP, điểm
-# Sử dụng các class từ models.py và file_handler.py
+
 
 from models import SinhVien, MonHoc, LopHocPhan, BangDiem
 from file_handler import (
@@ -26,7 +25,6 @@ class SinhVienManager:
 
     def them(self, sv):
        
-        # Validate dữ liệu trước khi thêm
         ok, msg = validate_mssv(sv.mssv)
         if not ok:
             return False, msg
@@ -40,7 +38,6 @@ class SinhVienManager:
         if not ok:
             return False, msg
 
-        # Kiểm tra trùng MSSV
         for s in self.ds_sinh_vien:
             if s.mssv.upper() == sv.mssv.upper():
                 return False, f"MSSV '{sv.mssv}' đã tồn tại!"
@@ -139,8 +136,6 @@ class MonHocManager:
         self.ds_mon_hoc = ds_mon_hoc if ds_mon_hoc is not None else []
 
     def them(self, mh):
-        
-        # Validate mã môn
         ok, msg = validate_ma_mon(mh.ma_mon)
         if not ok:
             return False, msg
@@ -154,7 +149,6 @@ class MonHocManager:
 
     def sua(self, ma_mon, mh_moi):
         
-        # Validate mã môn mới
         ok, msg = validate_ma_mon(mh_moi.ma_mon)
         if not ok:
             return False, msg
@@ -284,7 +278,6 @@ class DiemManager:
 
     def nhap_diem(self, bang_diem):
 
-        # Kiểm tra xem đã có điểm chưa
         for i, bd in enumerate(self.ds_diem):
             if (bd.mssv.upper() == bang_diem.mssv.upper() and
                     bd.ma_mon.upper() == bang_diem.ma_mon.upper()):
