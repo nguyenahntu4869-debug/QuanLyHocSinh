@@ -1,5 +1,4 @@
-# excel_handler.py - Đọc/ghi dữ liệu từ file Excel (.xlsx)
-# Sử dụng thư viện openpyxl
+
 
 import openpyxl
 from openpyxl.styles import Font, Alignment, Border, Side, PatternFill
