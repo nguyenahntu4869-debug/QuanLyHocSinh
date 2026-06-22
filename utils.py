@@ -33,7 +33,7 @@ def validate_ngay_sinh(ngay_sinh):
         return False, "Ngày sinh không được để trống"
     try:
         date_obj = datetime.strptime(ngay_sinh.strip(), "%d/%m/%Y")
-        # Kiểm tra tuổi hợp lý (16-60)
+       
         today = datetime.now()
         age = today.year - date_obj.year
         if age < 16:
@@ -50,7 +50,7 @@ def generate_hust_email(ho_ten, mssv):
     if not ho_ten or not mssv:
         return ""
     
-    # Bản đồ bỏ dấu tiếng Việt
+   
     char_map = {
         'à':'a', 'á':'a', 'ả':'a', 'ã':'a', 'ạ':'a',
         'ă':'a', 'ằ':'a', 'ắ':'a', 'ẳ':'a', 'ẵ':'a', 'ặ':'a',
@@ -75,17 +75,17 @@ def generate_hust_email(ho_ten, mssv):
     if not parts:
         return ""
     
-    # Tên = từ cuối cùng, bỏ dấu, viết hoa chữ đầu
+   
     ten = strip_accents(parts[-1]).capitalize()
     
-    # Chữ cái đầu của Họ Đệm (các từ trước tên), bỏ dấu, viết hoa
+   
     ho_dem_initials = ""
     for part in parts[:-1]:
         if part:
             first_char = strip_accents(part[0]).upper()
             ho_dem_initials += first_char
     
-    # Bỏ tiền tố "20" khỏi MSSV
+    
     mssv_suffix = mssv.strip()
     if mssv_suffix.startswith("20"):
         mssv_suffix = mssv_suffix[2:]
@@ -102,7 +102,7 @@ def validate_email(email, ho_ten="", mssv=""):
     if not re.match(pattern, email.strip()):
         return False, "Email không hợp lệ"
     
-    # Nếu có đủ thông tin, kiểm tra email theo định dạng HUST
+    
     if ho_ten and mssv:
         expected = generate_hust_email(ho_ten, mssv)
         if email.strip().lower() != expected.lower():
@@ -209,10 +209,10 @@ def vietnamese_sort_key(fullname):
     if not fullname:
         return ""
     
-    # Chuyển sang chữ thường
+   
     name = fullname.strip().lower()
     
-    # Bản đồ chuyển ký tự tiếng Việt có dấu sang không dấu
+   
     char_map = {
         'à':'a', 'á':'a', 'ả':'a', 'ã':'a', 'ạ':'a',
         'ă':'a', 'ằ':'a', 'ắ':'a', 'ẳ':'a', 'ẵ':'a', 'ặ':'a',
@@ -236,10 +236,10 @@ def vietnamese_sort_key(fullname):
     if not parts:
         return ""
         
-    # Lấy tên và họ lót
+  
     ten = parts[-1]
     ho_lot = " ".join(parts[:-1]) if len(parts) > 1 else ""
     
-    # Trả về tuple (Tên không dấu, Họ lót không dấu, Tên gốc, Họ lót gốc) để làm khóa sắp xếp
+   
     return (strip_accents(ten), strip_accents(ho_lot), ten, ho_lot)
 
