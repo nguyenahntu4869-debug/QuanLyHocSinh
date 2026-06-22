@@ -165,13 +165,11 @@ def quan_ly_mon_hoc(manager, diem_manager):
             input("\nNhấn Enter để tiếp tục...")
         elif choice == "4":
             ma_mon = input("Nhập Mã học phần cần xóa: ").strip()
-            # Kiểm tra học phần có tồn tại không
             mh_xoa = manager.tim_theo_ma(ma_mon)
             if not mh_xoa:
                 print(f"Lỗi: Học phần với mã '{ma_mon}' không tồn tại trong hệ thống!")
                 input("\nNhấn Enter để tiếp tục...")
                 continue
-            # Kiểm tra xem có điểm nào liên quan không
             diem_lien_quan = diem_manager.lay_diem_mon(ma_mon)
             if diem_lien_quan:
                 print(f"\n⚠️ Cảnh báo: Môn học này có {len(diem_lien_quan)} bản ghi điểm của sinh viên!")
@@ -358,10 +356,8 @@ def quan_ly_lhp(lhp_manager, sv_manager, mh_manager):
 
 
 def main():
-    # Load dữ liệu từ 4 file nhị phân
     ds_sv, ds_mh, ds_lhp, ds_diem = load_all()
-    
-    # Khởi tạo các Manager
+
     sv_manager = SinhVienManager(ds_sv)
     mh_manager = MonHocManager(ds_mh)
     lhp_manager = LopHocPhanManager(ds_lhp)
