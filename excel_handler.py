@@ -86,7 +86,6 @@ def import_lop_hoc_phan(filepath):
                 hoc_ky = str(row[2]).strip() if len(row) > 2 and row[2] is not None else ""
                 nam_hoc = str(row[3]).strip() if len(row) > 3 and row[3] is not None else ""
                 
-                # Đọc danh sách MSSV (cách nhau bởi dấu phẩy)
                 ds_mssv = []
                 if len(row) > 4 and row[4] is not None:
                     raw = str(row[4]).strip()
